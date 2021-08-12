@@ -22,7 +22,7 @@ end
 def pr_row(x)
   [
     x.title,
-    x.url
+    x.html_url
   ]
 end
 
@@ -30,14 +30,18 @@ def client
   Octokit::Client.new(access_token: credentials(:password))
 end
 
-def print_table(t)
-  puts Terminal::Table.new :rows => t
+def print_table(rows)
+  table = Terminal::Table.new do |t|
+    t.rows = rows
+    t.style = {:border_top => false, :border_bottom => false, :border_left => false, :border_right => false }
+  end
+  puts table
 end
 
 if ARGV[0] == "fzf"
   res = `#{$0} | fzf`
   if res.size > 0
-    url = res.split("|")[3]
+    url = res.split("|")[2]
     `firefox #{url}`
   end
 elsif ARGV[0] == "prs"

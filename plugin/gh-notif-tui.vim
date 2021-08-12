@@ -3,7 +3,7 @@ let s:gh_notif_path = expand('<sfile>:p:h')
 
 function! s:gh_notif_open_pr_output(line)
   let l:parser = split(a:line, "|")
-  let l:url = l:parser[1]
+  let l:url = l:parser[0]
   silent execute '!firefox ' . shellescape(l:url, 1)
 endfunction
 
@@ -17,7 +17,7 @@ command! -bang -nargs=0 GhNotifPrs
 
 function! s:gh_notif_open_output(line)
   let l:parser = split(a:line, "|")
-  let l:url = l:parser[2]
+  let l:url = l:parser[i]
   silent execute '!firefox ' . shellescape(l:url, 1)
 endfunction
 
