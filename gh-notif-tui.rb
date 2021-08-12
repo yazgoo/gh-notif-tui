@@ -1,23 +1,31 @@
+#!/bin/env ruby
 require 'erb'
 require 'octokit'
 require 'prettyprint'
 require 'base64'
 require 'terminal-table'
-# Provide authentication credentials
-client = Octokit::Client.new(:access_token => `lpass show --password github-access-token-gh-notif-tui`.chomp)
+def credentials(what)
+  `lpass show --#{what} github-access-token-gh-notif-tui`.chomp
+end
 
-# You can still use the username/password syntax by replacing the password value with your PAT.
-# client = Octokit::Client.new(:login => 'defunkt', :password => 'personal_access_token')
+def notification_row(x)
+  referer_id = ERB::Util.url_encode(Base64.encode64('018:NotificationThread' + x.id + ":#{credentials(:user)}").chomp)
+  url = x.subject.url.gsub("api.github.com/repos/", "github.com/").gsub("/pulls/", "/pull/")
+  [
+   x.repository.full_name,
+   x.subject.title,
+   "#{url}?notification_referrer_id=#{referer_id}",
+   ]
+end
 
-# Fetch the current user
-res = client.notifications.map { |x| 
-  referer_id = ERB::Util.url_encode(Base64.encode64('018:NotificationThread' + x.id + ':88483628').chomp)
-                                    url = x.subject.url.gsub("api.github.com/repos/", "github.com/").gsub("/pulls/", "/pull/")
-                           [
-                             x.repository.full_name,
-                            "#{url}?notification_referrer_id=#{referer_id}",
-                            x.subject.title
-                            ]
-}
-
+if ARGV[0] == "fzf"
+  res = `#{$0} | fzf`
+  if res.size > 0
+    url = res.split("|")[3]
+    `firefox #{url}`
+  end
+else
+client = Octokit::Client.new(access_token: credentials(:password))
+res = client.notifications.map { |x| notification_row(x) }
 puts Terminal::Table.new :rows => res
+end
