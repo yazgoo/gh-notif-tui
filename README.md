@@ -4,14 +4,14 @@ view github notifications and PRs in vim via fzf
 
 First install fzf and this plugin
 
-```vimscript
+```vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'yazgoo/gh-notif-tui'
 ```
 
 ## Configuration
 
-```vimscript
+```vim
 " command to run to get username
 let g:gh_notif_user_command = 'lpass show --user github-access-token-gh-notif-tui'
 " command to run to auth token
