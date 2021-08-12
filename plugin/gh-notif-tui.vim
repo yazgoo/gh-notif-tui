@@ -8,7 +8,7 @@ function! s:gh_notif_open_pr_output(line)
 endfunction
 
 command! -bang -nargs=0 GhNotifPrs
-  \ call fzf#vim#grep(s:gh_notif_path. '/../gh-notif-tui.rb prs', 0,
+  \ call fzf#vim#grep(s:gh_notif_path. '/../gh-notif-tui.rb prs "'.g:gh_notif_user_command.'" "'.g:gh_notif_password_command.'" "'.g:gh_notif_notes_command.'"', 0,
   \   {
   \     'sink': function('s:gh_notif_open_pr_output')
   \   },
@@ -22,7 +22,7 @@ function! s:gh_notif_open_output(line)
 endfunction
 
 command! -bang -nargs=0 GhNotif
-  \ call fzf#vim#grep(s:gh_notif_path. '/../gh-notif-tui.rb', 0,
+  \ call fzf#vim#grep(s:gh_notif_path. '/../gh-notif-tui.rb notif "'.g:gh_notif_user_command.'" "'.g:gh_notif_password_command.'" "'.g:gh_notif_notes_command.'"', 0,
   \   {
   \     'sink': function('s:gh_notif_open_output')
   \   },

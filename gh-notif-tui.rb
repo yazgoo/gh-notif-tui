@@ -5,7 +5,8 @@ require 'prettyprint'
 require 'base64'
 require 'terminal-table'
 def credentials(what)
-  `lpass show --#{what} github-access-token-gh-notif-tui`.chomp
+  cmd = ARGV[{user: 1, password: 2, notes: 3}[what]]
+  res = `#{cmd}`.chomp
 end
 
 def notification_row(x)
@@ -41,6 +42,6 @@ if ARGV[0] == "fzf"
   end
 elsif ARGV[0] == "prs"
   print_table client.search_issues("is:open is:pr author:#{credentials(:user)} archived:false sort:updated-desc").items.map { |x| pr_row(x) }
-else
+elsif ARGV[0] == "notif"
   print_table client.notifications.map { |x| notification_row(x) }
 end
