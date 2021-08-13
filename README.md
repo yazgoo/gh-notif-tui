@@ -1,4 +1,5 @@
-view github notifications and PRs in vim via fzf
+View github notifications and PRs in vim via fzf
+Supports multiple github accounts.
 
 ## Install
 
@@ -6,20 +7,40 @@ First install fzf and this plugin
 
 ```vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'yazgoo/gh-notif-tui'
+Plug 'yazgoo/gh-notif-tui', {'do': 'bundle install'}
 ```
 
 ## Configuration
 
+In ~/.config/gh-notif-tui.json, define your credentials.
+
+- `user` command to retrieve the name of the github user to filter PRs
+- `password` command to retrieve the github auth credential
+- `notes` command to retrieve the final id in `notification_referrer_id` (useful to have the notification shelf)
+- `command` command to open an url (where `%` will be replaced by the URL.
+
+```json
+{
+"creds": [
+ {
+ "user": "lpass show --user github-access-token-gh-notif-tui",
+ "password": "lpass show --password github-access-token-gh-notif-tui",
+ "notes": "lpass show --notes github-access-token-gh-notif-tui",
+ "command": "firefox 'ext+container:name=Professionnel&url=%'"
+ },
+ {
+ "user": "lpass show --user github-access-token-gh-notif-tui-perso",
+ "password": "lpass show --password github-access-token-gh-notif-tui-perso",
+ "notes": "lpass show --notes github-access-token-gh-notif-tui-perso",
+ "command": "firefox 'ext+container:name=Personnel&url=%'"
+ }
+ ]
+}
+```
+
+in your vimrc:
+
 ```vim
-" command to run to get username
-let g:gh_notif_user_command = 'lpass show --user github-access-token-gh-notif-tui'
-" command to run to auth token
-let g:gh_notif_password_command = 'lpass show --password github-access-token-gh-notif-tui'
-" command to run to get base64 decoded final id in `notification_referrer_id`
-" when decoding base64 notification_referrer_id
-" 018:NotificationThread42:final_id
-let g:gh_notif_notes_command = 'lpass show --notes github-access-token-gh-notif-tui'
 nnoremap <space>n :GhNotif<cr>
 nnoremap <space>i :GhNotifPrs<cr>
 ```

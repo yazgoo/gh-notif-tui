@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 gem "octokit", "~> 4.0"
-gem "prettyprint"
-gem "base64"
-gem "terminal-table"
-gem "erb"
+gem "base64", "~> 0.1"
+gem "terminal-table", "~> 3.0"
+gem "erb", "~> 2.0"
