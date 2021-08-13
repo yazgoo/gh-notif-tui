@@ -1,4 +1,4 @@
-View (and open in your browser) github notifications and PRs in vim via fzf.
+List (and open in your browser) github notifications and PRs in vim via fzf.
 
 Supports multiple github accounts.
 
