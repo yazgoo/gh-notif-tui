@@ -2,6 +2,8 @@ View and open github notifications and PRs in vim via fzf.
 
 Supports multiple github accounts.
 
+![screenshot](screenshot.png "screenshot")
+
 ## Install
 
 First install fzf and this plugin
