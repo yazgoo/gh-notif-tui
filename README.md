@@ -8,7 +8,7 @@ First install fzf and this plugin
 
 ```vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'yazgoo/gh-notif-tui', {'do': 'bundle install'}
+Plug 'yazgoo/gh-notif-tui', {'do': 'bundle config set --local path .vendor/bundle && bundle install'}
 ```
 
 ## Configuration

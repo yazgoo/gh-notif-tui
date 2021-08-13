@@ -1,4 +1,6 @@
 #!/bin/env ruby
+require 'rubygems'
+require 'bundler/setup'
 
 require 'erb'
 require 'octokit'
