@@ -1,7 +1,8 @@
 "<fzf ghnotif>
+let s:gh_notif_path = expand('<sfile>:p:h')
 
 function! GhNotifInternalGetCmdLine(what)
-  return expand('<sfile>:p:h') . '/gh-notif-tui.rb ' . a:what
+  return s:gh_notif_path . '/../gh-notif-tui.rb ' . a:what
 endfunction
 
 function! GhInternalOpenUrl(i, url)
