@@ -49,19 +49,35 @@ def print_table(rows)
   puts table
 end
 
-if ARGV[0] == "fzf"
-  res = `#{$0} | fzf`
-  if res.size > 0
-    url = res.split("|")[2]
-    `firefox #{url}`
+def open(action, line)
+  res = line.split("|")
+  account_id = res[0].to_i
+  url = nil
+  if action == "notif"
+    url = res[3]
+  elsif action == "prs"
+    url = res[2]
   end
-elsif ARGV[0] == "open"
   # open i url 
-  command = credentials[ARGV[1].to_i]["command"]
-  puts command
-  cmd = command.gsub("%", ARGV[2])
-  puts cmd
+  command = credentials[account_id]["command"]
+  cmd = command.gsub("%", url)
   `#{cmd}`
+end
+
+def within_selector_app app, action
+  cmd = "#{$0} #{action} | #{app == "rofi" ? "rofi -dmenu" : app}"
+  puts cmd
+  res = `#{cmd}`
+  if res.size > 0
+    open(action, res)
+  end
+end
+
+if ["fzf", "rofi"].include? ARGV[0]
+  within_selector_app ARGV[0], ARGV[1]
+elsif ARGV[0] == "open"
+  action = ARGV[1]
+  open(action, ARGV[2])
 elsif ARGV[0] == "prs"
   print_table (credentials.each_with_index.flat_map do |creds, i|
   client(creds).search_issues("is:open is:pr author:#{creds[ "user" ]} archived:false sort:updated-desc").items.map { |x| pr_row(x, i) }

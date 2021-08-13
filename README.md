@@ -1,17 +1,12 @@
-List (and open in your browser) github notifications and PRs in vim via fzf.
+List (and open in your browser) github notifications and PRs
 
-Supports multiple github accounts.
+Supports multiple github accounts, can be used with rofi, fzf, vim (with fzf).
 
 ![screenshot](screenshot.png "screenshot")
 
-## Install
+## prerequisites 
 
-First install fzf and this plugin
-
-```vim
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'yazgoo/gh-notif-tui', {'do': 'bundle config set --local path .vendor/bundle && bundle install'}
-```
+you need ruby and bundler installed.
 
 ## Configuration
 
@@ -26,19 +21,40 @@ In `~/.config/gh-notif-tui.json`, define your credentials.
 {
 "creds": [
  {
- "user": "lpass show --user github-access-token-gh-notif-tui",
- "password": "lpass show --password github-access-token-gh-notif-tui",
- "notes": "lpass show --notes github-access-token-gh-notif-tui",
+ "user": "lpass show --user gh-notif-tui",
+ "password": "lpass show --password gh-notif-tui",
+ "notes": "lpass show --notes gh-notif-tui",
  "command": "firefox 'ext+container:name=Professionnel&url=%'"
  },
  {
- "user": "lpass show --user github-access-token-gh-notif-tui-perso",
- "password": "lpass show --password github-access-token-gh-notif-tui-perso",
- "notes": "lpass show --notes github-access-token-gh-notif-tui-perso",
+ "user": "lpass show --user gh-notif-tui-perso",
+ "password": "lpass show --password gh-notif-tui-perso",
+ "notes": "lpass show --notes gh-notif-tui-perso",
  "command": "firefox 'ext+container:name=Personnel&url=%'"
  }
  ]
 }
+```
+
+## Using it out of vim
+
+It is also possible to run it directly within a terminal:
+
+- PRs: `./gh-notif-tui.rb fzf prs`
+- notifications `./gh-notif-tui.rb fzf notif`
+
+Or directly with rofi:
+
+- PRs: `./gh-notif-tui.rb rofi prs`
+- notifications `./gh-notif-tui.rb rofi notif`
+
+## Plugin install (vim)
+
+First install fzf and this plugin
+
+```vim
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'yazgoo/gh-notif-tui', {'do': 'bundle config set --local path .vendor/bundle && bundle install'}
 ```
 
 in your vimrc:
