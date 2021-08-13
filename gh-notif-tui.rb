@@ -68,6 +68,6 @@ elsif ARGV[0] == "prs"
   end)
 elsif ARGV[0] == "notif"
   print_table(credentials.each_with_index.flat_map do |creds, i|
-    client(creds).notifications.map { |x| notification_row(x, i) }
+    client(creds).notifications.map { |x| notification_row(creds, x, i) }
   end)
 end
