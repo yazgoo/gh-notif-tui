@@ -18,7 +18,7 @@ Plug 'yazgoo/gh-notif-tui', {'do': 'bundle config set --local path .vendor/bundl
 In `~/.config/gh-notif-tui.json`, define your credentials.
 
 - `user` command to retrieve the name of the github user to filter PRs
-- `password` command to retrieve the github auth credential
+- `password` command to retrieve a [github personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 - `notes` command to retrieve the final id in `notification_referrer_id` (useful to have the notification shelf). See section `Getting final_id`
 - `command` command to open an url (where `%` will be replaced by the URL.
 
