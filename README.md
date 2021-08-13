@@ -13,7 +13,7 @@ Plug 'yazgoo/gh-notif-tui', {'do': 'bundle install'}
 
 ## Configuration
 
-In ~/.config/gh-notif-tui.json, define your credentials.
+In `~/.config/gh-notif-tui.json`, define your credentials.
 
 - `user` command to retrieve the name of the github user to filter PRs
 - `password` command to retrieve the github auth credential
